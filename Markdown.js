@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import _ from 'lodash';
-import SimpleMarkdown from 'simple-markdown';
+import SimpleMarkdown from 'simple-markdown-custom';
 
 var styles = {
   autolink: {
@@ -82,13 +82,17 @@ var styles = {
     fontWeight: 'bold',
   },
   list: {
-
+  },
+  sublist:{
+    paddingLeft: 20,
+    width: Dimensions.get('window').width - 60,
   },
   listItem: {
     flexDirection: 'row',
   },
   listItemText: {
     flex: 1,
+    
   },
   listItemBullet: {
     fontSize: 20,
@@ -147,7 +151,7 @@ var styles = {
     padding: 5,
   },
   tableRow: {
-    borderBottomWidth: 1,
+    //borderBottomWidth: 1,
     borderColor: '#222222',
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -166,7 +170,7 @@ var styles = {
   },
   u: {
     borderColor: '#222222',
-    borderBottomWidth: 1,
+    //borderBottomWidth: 1,
   },
 };
 
@@ -178,14 +182,14 @@ var Markdown = React.createClass({
     onImageOpen: PropTypes.func,
     onImageClose: PropTypes.func,
     onLoad: PropTypes.func,
-    style: PropTypes.shape({
+    styles: PropTypes.shape({
       view: View.propTypes.style,
     }),
   },
 
   getDefaultProps: function() {
     return {
-      style: styles,
+      styles: styles,
     };
   },
 
@@ -203,7 +207,7 @@ var Markdown = React.createClass({
       onImageClose: this.props.onImageClose,
     };
 
-    var mergedStyles = _.merge({}, styles, this.props.style);
+    var mergedStyles = _.merge({}, styles, this.props.styles);
     var rules = require('./rules')(mergedStyles, opts);
     rules = _.merge({}, SimpleMarkdown.defaultRules, rules);
 
@@ -229,7 +233,7 @@ var Markdown = React.createClass({
     var child = _.isArray(this.props.children)
       ? this.props.children.join('') : this.props.children;
     var tree = this.parse(child);
-    return <View style={[styles.view, this.props.style.view]}>{this.renderer(tree)}</View>;
+    return <View style={[styles.view, this.props.styles.view]}>{this.renderer(tree)}</View>;
   },
 });
 

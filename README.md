@@ -1,6 +1,6 @@
 # react-native-markdown
 
-A component for rendering Markdown in React Native. Pull requests welcome.
+A component for rendering Markdown in React Native. Pull requests are really appreciated.
 
 ## Known issues
 
@@ -8,27 +8,43 @@ A component for rendering Markdown in React Native. Pull requests welcome.
 
 ## Getting started
 
-1. `npm install react-native-markdown --save`
+1. add this line to your package.json `dependencies`
+
+    `"react-native-simple-markdown": "git+https://github.com/andangrd/react-native-markdown.git"`
+    
+2. run `npm install`
 
 ## Usage
 
-All you need is to `require` the `react-native-markdown` module and then use the
+All you need is to `import` the `react-native-simple-markdown` module and then use the
 `<Markdown/>` tag.
 
 ```javascript
-var React = require('react-native');
-var {
+import { Component } from 'react';
+import {
   AppRegistry,
   StyleSheet,
   View
-} = React;
-var Markdown = require('react-native-markdown');
+} from 'react-native';
+import Markdown from 'react-native-simple-markdown';
 
-var mdApp = React.createClass({
-  render: function() {
+class mdApp extends Component {
+  render() {
     return (
       <View>
-        <Markdown>
+        <Markdown >
+          # This is Heading 1
+          ## This is Heading 2
+          1. List1 {'\n'}
+          2. List2 {'\n'} 
+          {'\t'}1. sublist1{'\n'}
+          {'\t'}description sublist1.{'\n'}
+          {'\t'}2. sublist2{'\t\t'}{'\n'}
+          * List3{'\n'}
+          * List4{'\n'}
+          {'\t'}1. **bold text** {'\n'}
+          {'\t'}2. this line contain * and should not be a new sublist{'\t\t'}{'\n'}
+          5.  Last list{'\n\n'}
           Some *really* basic **Markdown**.
           {'\n\n'}
           | # | Name   | Age |{'\n'}
@@ -36,7 +52,7 @@ var mdApp = React.createClass({
           | 1 | John   | 19  |{'\n'}
           | 2 | Sally  | 18  |{'\n'}
           | 3 | Stream | 20  |{'\n'}
-        </Markdown>
+        </Markdown >
       </View>
     );
   }
@@ -64,7 +80,8 @@ Default style properties will be applied to the markdown. You will likely want t
 - `image` (`<Image>`) - Implemented but size is fixed to `50x50` until auto width is supported by React Native.
 - `inlineCode` (`<Text>`)
 - `link` (`<Text>`) - WIP
-- `list` (`<View>`) - Also `listItem` (`<View>`), `listItemBullet` (`<Text>`) and `listItemNumber` (`<Text>`)
+- `list` (`<View>`) - Also `sublist` (`<View>`), `listItem` (`<View>`), `listItemBullet` (`<Text>`) and `listItemNumber` (`<Text>`)
+- `sublist` (`<View`) - Also `listItem` (`<View>`), `listItemBullet` (`<Text>`) and `listItemNumber` (`<Text>`)
 - `mailto` (`<Text>`) - WIP
 - `newline` (`<Text>`) - WIP
 - `paragraph` (`<View>`)
